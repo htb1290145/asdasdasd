@@ -67,7 +67,6 @@
           </template>
         </el-table-column>
         <!-- 索引列 -->
-        <el-table-column width="50px">1</el-table-column>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="角色名称" prop="roleName"></el-table-column>
         <el-table-column label="角色描述" prop="roleDesc"></el-table-column>

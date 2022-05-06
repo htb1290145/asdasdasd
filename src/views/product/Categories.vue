@@ -181,7 +181,7 @@ export default {
         // 分类层级
         cat_level: 0
       },
-      // 分级分类列表
+      // 父级分级分类列表
       parentCateList: [],
       // 添加分类验证规则
       rules: {
@@ -272,7 +272,6 @@ export default {
     },
     // 对话框关闭，重置表单
     addCateDialogClose() {
-      console.log('addCategoriesDialogClose')
       this.$refs.addCateFormRef.resetFields()
       this.selectedKeys = []
       this.addCategoriesForm.cat_pid = 0
