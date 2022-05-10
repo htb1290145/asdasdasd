@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>响应式原理</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 张三 -->
+    {{message}} 
+    {{name}}
+  </div>
+  <script>
+    const obj = {
+      message: '信息',
+      name: '名字'
+    }
+    // 遍历对象的数据，并对每一个属性加上get和set方法，监听数据的改变
+    Object.keys(obj).forEach(key => {
+      let value = obj[key]
+      Object.defineProperty(obj, key, {
+        // 监听到数据改变
+        set(newValue) {
+          console.log('数据发生变化');
+          value = newValue
+
+          // 通知
+          dep.notify()
+        },
+        // 解析html代码，获取到在用属性的节点
+        get() {
+          // 张三get->update
+          // 李四get->update
+          console.log('获取数据');
+          return value
+        }
+      })
+    })
+    // 发布者
+    class Dep {
+      constructor() {
+        // 记录谁订阅了属性（观察者）
+        this.subs = []
+      }
+      // 把所有订阅者加入到数组汇总
+      addSub(watcher) {
+        this.subs.push(watcher)
+      }
+      // 通知所有的订阅者，数据改变了
+      notify() {
+        this.subs.forEach(item => {
+          item.update()
+        })
+      }
+    }
+
+    // 订阅者
+    class watcher {
+      constructor(name) {
+        this.name = name
+      }
+      // 数据变化——更新视图
+      update() {
+        console.log(this.name + '发生了update');
+      }
+    }
+    const dep = new Dep()
+    const w1 = new watcher('张三')
+    dep.addSub(w1)
+    dep.notify()
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '信息',
+        name: '名字'
+      }
+    })
+  </script>
+</body>
+
+</html>
