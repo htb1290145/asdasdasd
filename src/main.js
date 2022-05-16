@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
@@ -19,7 +20,25 @@ axios.interceptors.request.use(config => {
   return config
 })
 Vue.prototype.$http = axios
+
+// 使用树形表格插件
 Vue.use(ZkTable)
+
+// 全局时间过滤器
+Vue.filter('dateFormat', function (originValue) {
+  const dt = new Date(originValue)
+
+  const y = dt.getFullYear()
+  // padStart 不足两位补成两位数
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  const d = (dt.getDay() + '').padStart(2, '0')
+
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
 
 Vue.config.productionTip = false
 
