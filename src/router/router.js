@@ -47,7 +47,7 @@ const routes = [
       // 商品管理
       {
         path: '/goods',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/product/Goods.vue')
+        component: () => import(/* webpackChunkName: "about" */ '@/views/product/GoodsList.vue')
       },
       {
         path: '/params',
@@ -56,6 +56,10 @@ const routes = [
       {
         path: '/categories',
         component: () => import(/* webpackChunkName: "about" */ '@/views/product/Categories.vue')
+      },
+      {
+        path: '/goods/addGood',
+        component: () => import(/* webpackChunkName: "about" */ '@/views/product/AddGoods.vue')
       },
       // 订单管理
       {
