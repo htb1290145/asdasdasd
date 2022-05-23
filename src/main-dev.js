@@ -1,35 +1,39 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import './plugins/element.js'
-// quill富文本编辑器
-import VueQuillEditor from 'vue-quill-editor'
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
 
 // 导入基础css
 import '@/assets/css/base.css'
 // 字体图标
 import '@/assets/css/fonts/iconfont.css'
+
 // tree-table
 import ZkTable from 'vue-table-with-tree-grid'
 
 // nprogress
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+
+// quill富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 // axios
 import axios from 'axios'
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
-// 请求拦截器添加token，保证获取数据的权限
+// 请求拦截器:1.添加token，保证获取数据的权限 2.nprogress展示进度条
 axios.interceptors.request.use(config => {
-  config.headers.Authorization = window.sessionStorage.getItem('token')
   NProgress.start()
+  config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
 // 响应拦截器  数据响应完成，nprogress隐藏进度条
 axios.interceptors.response.use(config => {
   NProgress.done()
-  console.log(1)
   return config
 })
 Vue.prototype.$http = axios

@@ -59,12 +59,10 @@ export default {
   created() {},
   async mounted() {
     const { data: res } = await this.$http.get('reports/type/1')
-    console.log(res)
     // 3 基于DOM，初始化echarts实例
     const myChart = echarts.init(document.getElementById('main'))
     // 准备数据和配置项
     const result = _.merge(res.data, this.options)
-    console.log(result)
     // 4 绘制图表 + 5 展示
     myChart.setOption(result)
   }

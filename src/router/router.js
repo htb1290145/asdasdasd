@@ -6,7 +6,16 @@ const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
+// 组件
+const Login = () => import(/* webpackChunkName: "login" */ '@/views/Login.vue')
+const Home = () => import(/* webpackChunkName: "Home" */ '@/views/Home.vue')
 
+const Welcome = () => import(/* webpackChunkName: "Home_Welcome" */ '@/views/Welcome.vue')
+const Users = () => import(/* webpackChunkName: "Home_" */ '@/views/users/Users.vue')
+const Rights = () => import(/* webpackChunkName: "Home_" */ '@/views/authority/Rights.vue')
+const Roles = () => import(/* webpackChunkName: "Home_" */ '@/views/authority/Roles.vue')
+const GoodsList = () => import(/* webpackChunkName: "Home_" */ '@/views/product/GoodsList.vue')
+const Params = () => import(/* webpackChunkName: "Home_" */ '@/views/product/Params.vue')
 const routes = [
   {
     path: '/',
@@ -15,12 +24,12 @@ const routes = [
   {
     path: '/login',
     name: 'AppLogin',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Login.vue')
+    component: Login
   },
   {
     path: '/home',
     name: 'AppHome',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue'),
+    component: Home,
     // 进入/home 就跳转到 /welcome
     redirect: '/welcome',
     children: [
@@ -28,30 +37,30 @@ const routes = [
       {
         path: '/welcome',
         name: 'HomeWelcome',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/Welcome.vue')
+        component: Welcome
       },
       // 用户管理
       {
         path: '/users',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/users/Users.vue')
+        component: Users
       },
       // 权限管理
       {
         path: '/rights',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/authority/Rights.vue')
+        component: Rights
       },
       {
         path: '/roles',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/authority/Roles.vue')
+        component: Roles
       },
       // 商品管理
       {
         path: '/goods',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/product/GoodsList.vue')
+        component: GoodsList
       },
       {
         path: '/params',
-        component: () => import(/* webpackChunkName: "about" */ '@/views/product/Params.vue')
+        component: Params
       },
       {
         path: '/categories',
